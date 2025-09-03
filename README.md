@@ -15,7 +15,7 @@
 构建工具：g++
 运行环境：Linux
 编译与运行：
-git clone https://github.com/your-username/cpp-http-server.git
+git clone https://github.com/LMD-dif/-HTTP-.git
 cd cpp-http-server
 编译项目：
 g++ server.cpp -o server -pthread -std=c++17
