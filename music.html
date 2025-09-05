@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>音乐分享平台</title>
+    <script src="js/index_js.js"></script>
+    <!-- 内嵌CSS样式，整合原styles.css全部内容 -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* 轮播图样式 */
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 10;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-control.prev {
+            left: 20px;
+        }
+
+        .carousel-control.next {
+            right: 20px;
+        }
+
+        /* 歌手板块样式 */
+        .artists-section {
+            margin-top: 40px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #333;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: #ff4757;
+        }
+
+        /* 热门音乐 - 8个模块 (4x2) */
+        .hot-artists {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        /* 热门歌手 - 6个模块 (3x2) */
+        .new-artists {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .artist-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .artist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .artist-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+
+        .artist-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .artist-name {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .artist-genre {
+            font-size: 14px;
+            color: #666;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .hot-artists {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .new-artists {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hot-artists, .new-artists {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .carousel {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hot-artists, .new-artists {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 轮播图区域 -->
+        <div class="carousel">
+            <div class="carousel-inner">
+                <!-- 轮播图1 -->
+                <div class="carousel-item">
+                    <a href="player.jsp?songId=101">
+                        <img src="https://pic.ntimg.cn/file/20230811/20949600_214916033101_2.jpg" alt="本周热门单曲">
+                        <div class="carousel-caption">
+                            <h3>本周热门单曲</h3>
+                            <p>这一周，让音符写满你的心跳</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- 轮播图2 -->
+                <div class="carousel-item">
+                    <a href="player.jsp?songId=102">
+                        <img src="https://img.51miz.com/Photo/2018/02/07/05/P1317905_0232d96338f28c707e6909e502c1c7b2.jpg" alt="新专辑发布">
+                        <div class="carousel-caption">
+                            <h3>新专辑发布</h3>
+                            <p>专辑，是写给耳朵的情书</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- 轮播图3 -->
+                <div class="carousel-item">
+                    <a href="player.jsp?songId=103">
+                        <img src="https://ts1.tc.mm.bing.net/th/id/OIP-C.zuLvgM3-Jmb4nrcfI_aRaAAAAA?rs=1&pid=ImgDetMain" alt="经典歌曲回顾">
+                        <div class="carousel-caption">
+                            <h3>经典歌曲回顾</h3>
+                            <p>重温那些年的经典</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- 轮播控制按钮 -->
+            <button class="carousel-control prev">❮</button>
+            <button class="carousel-control next">❯</button>
+        </div>
+
+        <!-- 热门音乐板块 -->
+        <div class="artists-section">
+            <h2 class="section-title">热门音乐</h2>
+            <div class="artists-grid hot-artists">
+                <!-- 热门音乐1：抖音热门歌曲 -->
+                <div class="artist-card">
+                    <a href="player.jsp?artistId=1">
+                        <img src="https://d.musicapp.migu.cn/data/oss/service66/00/2a/n2/py" alt="抖音热门歌曲">
+                        <div class="artist-info">
+                            <h3 class="artist-name">抖音热门歌曲</h3>
+                            <p class="artist-genre">那些抖音爆火的歌曲合集</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- 热门音乐2：emo合集 -->
+                <div class="artist-card">
+                    <a href="player.jsp?artistId=2">
+                        <img src="https://img.keaitupian.cn/newupload/05/1683352879438178.jpg" alt="emo合集">
+                        <div class="artist-info">
+                            <h3 class="artist-name">emo合集</h3>
+                            <p class="artist-genre">让歌声治愈你的心</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- 热门音乐3：下班必听 -->
+                <div class="artist-card">
+                    <a href="player.jsp?artistId=3">
+                        <img src="https://img.pconline.com.cn/images/upload/upc/tx/photoblog/2208/31/c1/331538211_1661946466594.jpg" alt="下班必听">
+                        <div class="artist-info">
+                            <h3 class="artist-name">下班必听</h3>
+                            <p class="artist-genre">回家之路不寂寞</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- 热门音乐4：BE美学 -->
+                <div class="artist-card">
+                    <a href="player.jsp?artistId=4">
+                        <img src="https://tse3-mm.cn.bing.net/th/id/OIP-C.1vCr9NbBnO1ukEG4k3aI2AHaNK?w=115&h=180&c=7&r=0&o=5&dpr=2&pid=1.7" alt="BE美学">
+                        <div class="artist-info">
+                            <h3 class="artist-name">BE美学</h3>
+                            <p class="artist-genre">生离死别，殊途同归</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- 热门音乐5：你如约而至 -->
+                <div class="artist-card">
+                    <a href="player.jsp?artistId=5">
+                        <img src="https://ts1.tc.mm.bing.net/th/id/OIP-C.Q8mt7VHa5gUMa5VXiZSNSgAAAA?rs=1&pid=ImgDetMain" alt="你如约而至">
+                        <div class="artist-info">
+                            <h3 class="artist-name">你如约而至</h3>
+                            <p class="artist-genre">是我允许的那束光，照进我的世界</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- 热门音乐6：孤岛与回声 -->
+                <div class="artist-card">
+                    <a href="player.jsp?artistId=6">
+                        <img src="https://ts4.tc.mm.bing.net/th/id/OIP-C.XNh4TgTCoEAlGsb9Bsm5fAHaL0?w=1280&h=2043&rs=1&pid=ImgDetMain" alt="孤岛与回声">
+                        <div class="artist-info">
+                            <h3 class="artist-name">孤岛与回声</h3>
+                            <p class="artist-genre">独处的时候我最懂你</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- 热门音乐7：海之梦 -->
+                <div class="artist-card">
+                    <a href="player.jsp?artistId=7">
+                        <img src="https://img95.699pic.com/photo/40011/3456.jpg_wh300.jpg" alt="海之梦">
+                        <div class="artist-info">
+                            <h3 class="artist-name">海之梦</h3>
+                            <p class="artist-genre">深夜潮声中的梦，带着咸涩的思念</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- 热门音乐8：无人处告白 -->
+                <div class="artist-card">
+                    <a href="player.jsp?artistId=8">
+                        <img src="https://img-baofun.zhhainiao.com/pcwallpaper_ugc_mobile/preview/693c6c351400211ca6a91b8c72b07478_preview_mid.jpg" alt="无人处告白">
+                        <div class="artist-info">
+                            <h3 class="artist-name">无人处告白</h3>
+                            <p class="artist-genre">独处时的坦白，或许是对生活、回忆或自己的倾诉</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 热门歌手板块 -->
+        <div class="artists-section">
+            <h2 class="section-title">热门歌手</h2>
+            <div class="artists-grid new-artists">
+                <!-- 歌手1：周深 -->
+                <div class="artist-card">
+                    <a href="zhoushen.jsp?artistId=9">
+                        <img src="https://ts3.tc.mm.bing.net/th/id/OIP-C.5AGmhyCax1DPg2-tu7QS4QHaEK?rs=1&pid=ImgDetMain" alt="周深">
+                        <div class="artist-info">
+                            <h3 class="artist-name">周深</h3>
+                            <p class="artist-genre">华语流行</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- 歌手2：邓紫棋 -->
+                <div class="artist-card">
+                    <a href="dengziqi.jsp?artistId=10">
+                        <img src="https://audio-y.com/wp-content/uploads/2022/09/b812c8fcc3cec3fdfc0374801adcc33f8794a5c289b3-1024x1024.jpeg" alt="邓紫棋">
+                        <div class="artist-info">
+                            <h3 class="artist-name">邓紫棋</h3>
+                            <p class="artist-genre">华语流行</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- 歌手3：林俊杰 -->
+                <div class="artist-card">
+                    <a href="linjunjie.jsp?artistId=11">
+                        <img src="https://ts1.tc.mm.bing.net/th/id/R-C.964c018e017e7a8322cf3ad1de8a90de?rik=LCLxQZGG%2fhIXBw&riu=http%3a%2f%2fi0.hdslb.com%2fbfs%2farchive%2f16e111ffbecc66f1872d2f2b4a3bfc2917242ddb.jpg&ehk=oivFb8st59yOuWnaxUFpnAt9lFxBZNPswSMF0F8Dxnw%3d&risl=&pid=ImgRaw&r=0" alt="林俊杰">
+                        <div class="artist-info">
+                            <h3 class="artist-name">林俊杰</h3>
+                            <p class="artist-genre">华语流行</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- 歌手4：薛之谦 -->
+                <div class="artist-card">
+                    <a href="xuezhiqian.jsp?artistId=12">
+                        <img src="https://n.sinaimg.cn/sinacn10110/466/w810h456/20191012/3938-ifvwfti8776813.jpg" alt="薛之谦">
+                        <div class="artist-info">
+                            <h3 class="artist-name">薛之谦</h3>
+                            <p class="artist-genre">华语流行</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- 歌手5：李荣浩 -->
+                <div class="artist-card">
+                    <a href="lironghao.jsp?artistId=13">
+                        <img src="https://ts1.tc.mm.bing.net/th/id/R-C.9198750a9cddc08dafede11c671bc98a?rik=cWn6rME0r81Bgw&riu=http%3a%2f%2fn.sinaimg.cn%2fsinakd20230313ac%2f133%2fw2000h1333%2f20230313%2fe16b-803c040efff41b1af6ad7e2cfbe1a638.jpg&ehk=xPz%2f3v1P36TQbl5l2X5k7mqt4mDGvJGVFLgIyfToksA%3d&risl=&pid=ImgRaw&r=0" alt="李荣浩">
+                        <div class="artist-info">
+                            <h3 class="artist-name">李荣浩</h3>
+                            <p class="artist-genre">华语流行</p>
+                        </div>
+                    </a>
+                </div>
+                <!-- 歌手6：张杰 -->
+                <div class="artist-card">
+                    <a href="zhangjie.jsp?artistId=14">
+                        <img src="https://puui.qpic.cn/vpic_cover/h3324obc4kx/h3324obc4kx_hz.jpg/1280" alt="张杰">
+                        <div class="artist-info">
+                            <h3 class="artist-name">张杰</h3>
+                            <p class="artist-genre">华语流行</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
